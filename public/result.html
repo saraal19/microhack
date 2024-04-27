@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<title>Smart Document Classifier Bot</title>
+
+	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+    <meta name="viewport" content="width=device-width" />
+
+	<!--     Fonts and icons     -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Karla:400,700&display=swap');
+        .font-family-karla { font-family: karla; }
+        .bg-sidebar { background: #000000; }
+        .cta-btn { color: #3d68ff; }
+        .upgrade-btn { background: #1947ee; }
+        .upgrade-btn:hover { background: #0038fd; }
+        .active-nav-link { background: #1947ee; }
+        .nav-item:hover { background: #434447; }
+        .account-link:hover { background: #3d68ff; }
+    </style>
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.css" rel="stylesheet">
+
+	<!-- CSS Files -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+
+</head>
+
+<body class="bg-gray-100 font-family-karla flex">
+    <aside  class="relative bg-sidebar h-screen w-64 hidden sm:block shadow-xl">
+        <div class="p-6">
+            <a href="forms" class="text-white text-3xl font-semibold uppercase hover:text-gray-300">Admin</a>
+           
+        </div>
+        <nav class="text-white text-base font-semibold pt-3">
+            <a href="forms" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+                <i class="fas fa-tachometer-alt mr-3"></i>
+                Dashboard
+            </a>
+            <a href="main" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+                <i class="fas fa-tablet-alt mr-3"></i>
+                Home
+            </a>        
+    </aside>
+    <div class="relative w-full flex flex-col h-screen">
+        <!-- Desktop Header -->
+        <header class="w-full items-center bg-black py-2 px-6 hidden sm:flex bg-black">
+            <div class="w-1/2"></div>
+            <div x-data="{ isOpen: false }" class="relative w-1/2 flex justify-end">
+                <button @click="isOpen = !isOpen" class="realtive z-10 w-12 h-12 rounded-full overflow-hidden border-4 border-gray-400 hover:border-gray-300 focus:border-gray-300 focus:outline-none">
+                    <img src="https://source.unsplash.com/uJ8LNVCBjFQ/400x400">
+                </button>
+                <button x-show="isOpen" @click="isOpen = false" class="h-full w-full fixed inset-0 cursor-default"></button>
+                <div x-show="isOpen" class="absolute w-32 bg-white rounded-lg shadow-lg py-2 mt-16">
+                    <a href="account" class="block px-4 py-2 account-link hover:text-white">Account</a>
+                    <a  class="block px-4 py-2 account-link hover:text-white" id="logout" >Sign Out</a>
+                </div>
+            </div>
+        </header>
+
+        <!-- Mobile Header & Nav -->
+        <header x-data="{ isOpen: false }" class="w-full bg-sidebar py-5 px-6 sm:hidden">
+            <div class="flex items-center justify-between">
+                <a href="main" class="text-white text-3xl font-semibold uppercase hover:text-gray-300">Admin</a>
+                <button @click="isOpen = !isOpen" class="text-white text-3xl focus:outline-none">
+                    <i x-show="!isOpen" class="fas fa-bars"></i>
+                    <i x-show="isOpen" class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <!-- Dropdown Nav -->
+            
+            <!-- <button class="w-full bg-white cta-btn font-semibold py-2 mt-5 rounded-br-lg rounded-bl-lg rounded-tr-lg shadow-lg hover:shadow-xl hover:bg-gray-300 flex items-center justify-center">
+                <i class="fas fa-plus mr-3"></i> New Report
+            </button> -->
+        </header>
+    
+        <div class="w-full h-screen border-t flex flex-col">
+            <main class="w-full flex-grow p-6">
+                <h1 class="w-full text-3xl text-black pb-6">Result</h1>
+
+            </main>
+    
+            <footer class="w-full bg-white text-right p-4">
+                      </footer>
+        </div>
+        
+    </div>
+
+    
+	<!--   Core JS Files   -->
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    const socket = io();
+    socket.emit('login_test','');
+
+    // const logout = document.getElementById('logout');
+    // logout.addEventListener('click', (event) => {
+    //   // Envoyer les informations de login au serveur via Socket.IO
+    //   socket.emit('logout');
+    // });
+    // Recevoir le résultat de l'authentification depuis le serveur
+    socket.on('login_result', (result) => {
+      if (result.success) {
+        // Rediriger ou afficher un contenu protégé après l'authentification réussie
+      } else {
+        window.location.href = '/';
+        // Afficher un message d'erreur ou d'autres actions à prendre en cas d'échec de l'authentification
+      }
+    });
+  </script>
+   <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+   <!-- Font Awesome -->
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js" integrity="sha256-KzZiKy0DWYsnwMF+X1DvQngQ2/FxF7MF3Ff72XcpuPs=" crossorigin="anonymous"></script>
+  
+   <script>
+    const logout = document.getElementById('logout');
+    logout.addEventListener('click', (event) => {
+        // Envoyer les informations de login au serveur via Socket.IO
+        socket.emit('logout');
+        // Prevent default behavior of anchor element (preventing navigation)
+        event.preventDefault();
+    });
+    </script>
+
+</body>
+</html>

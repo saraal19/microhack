@@ -1,0 +1,22 @@
+{
+  "name": "pac2",
+  "version": "1.0.0",
+  "description": "<a href=\"https://https://demo.themesberg.com/landwind/\" rel=\"Tailwind CSS Landing Page\">![Tailwind CSS Landing Page Demo - Flowbite](https://themesberg.s3.us-east-2.amazonaws.com/public/github/landwind/thumbnail.png)</a>",
+  "main": "index.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "electron": "^30.0.1",
+    "express": "^4.19.2",
+    "express-session": "^1.18.0",
+    "socket.io": "^4.7.5",
+    "sqlite3": "^5.1.7"
+  },
+  "repository": {
+    "type": "git",
+    "url": "main2.js"
+  }
+}
