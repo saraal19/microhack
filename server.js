@@ -40,6 +40,13 @@ const db = new sqlite3.Database(dbPath, (err) => {
     console.log('Connexion à la base de données SQLite réussie.');
   }
 });
+const db2 = new sqlite3.Database(path.join(__dirname, 'metadata.db'), (err) => {
+  if (err) {
+    console.error('Erreur lors de la connexion à la base de données :', err.message);
+  } else {
+    console.log('Connexion à la base de données SQLite réussie.');
+  }
+});
 
 // Définition d'une route pour la page d'accueil
 app.get('/', (req, res) => {
